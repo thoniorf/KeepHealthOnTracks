@@ -2,7 +2,7 @@ import 'package:keep_health_on_track/model/BloodPressure.dart';
 import 'package:test/test.dart';
 
 void main() {
-  test("Test blood pressure creation", () {
+  test("Test BloodPressure creation", () {
     const int m = 10;
     const int M = 10;
     const int pul = 70;
