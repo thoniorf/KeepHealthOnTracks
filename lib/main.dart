@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:keep_health_on_track/view/DayDisplayPage.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  initializeDateFormatting('it_IT', null).then((_) => runApp(MyApp()));
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
@@ -20,7 +24,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: DayDisplayPage()
     );
   }
 }

@@ -11,4 +11,18 @@ class Measurement {
   BloodPressure get bloodPressure => _bloodPressure;
 
   DateTime get dateTime => _dateTime;
+
+  // Equality operator based on datetime field.
+  @override
+  bool operator ==(other) {
+    bool isEqual = false;
+    if(other is Measurement) {
+      isEqual = other._dateTime.isAtSameMomentAs(this._dateTime);
+    }
+    return isEqual;
+  }
+
+  // return timestamp of datetime as hashcode
+  @override
+  int get hashCode => _dateTime.millisecondsSinceEpoch;
 }

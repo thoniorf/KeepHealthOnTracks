@@ -13,4 +13,9 @@ class BloodPressure {
   int get max => _max;
 
   int get pul => _pul;
+
+  @override
+  String toString() {
+    return "Min: " +_min.toString() + " Max: " +_max.toString() + " Pul: " + _pul.toString();
+  }
 }
