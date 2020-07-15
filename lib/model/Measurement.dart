@@ -1,10 +1,11 @@
+import 'package:intl/intl.dart';
 import 'package:keep_health_on_track/model/BloodPressure.dart';
 
 class Measurement {
   DateTime _dateTime;
   BloodPressure _bloodPressure;
 
-  Measurement(this._bloodPressure, [this._dateTime]){
+  Measurement(this._bloodPressure, [this._dateTime]) {
     this._dateTime ??= DateTime.now();
   }
 
@@ -16,7 +17,7 @@ class Measurement {
   @override
   bool operator ==(other) {
     bool isEqual = false;
-    if(other is Measurement) {
+    if (other is Measurement) {
       isEqual = other._dateTime.isAtSameMomentAs(this._dateTime);
     }
     return isEqual;
@@ -24,5 +25,8 @@ class Measurement {
 
   // return timestamp of datetime as hashcode
   @override
-  int get hashCode => _dateTime.millisecondsSinceEpoch;
+  int get hashCode {
+    String hashString = DateFormat("yMd").format(_dateTime).replaceAll("/", "");
+    return int.parse(hashString);
+  }
 }
