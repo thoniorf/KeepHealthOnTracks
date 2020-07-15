@@ -1,12 +1,9 @@
-import 'dart:math';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
-import 'package:keep_health_on_track/model/BloodPressure.dart';
 import 'package:keep_health_on_track/model/Measurement.dart';
+import 'package:keep_health_on_track/view/AddMeasurementPage/AddMeasurementPage.dart';
 import 'package:keep_health_on_track/view/DayDisplayPage/MeasurementListTile.dart';
 import 'package:keep_health_on_track/view/utils/Parameters.dart';
 
@@ -34,20 +31,15 @@ class DayDisplayPageState extends State<DayDisplayPage> {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: Colors.white,
-          elevation: 0,
           centerTitle: true,
           title: Text(
             this._appBarTitle.toUpperCase(),
             style: TextStyle(color: Colors.black),
           ),
-          leading: IconButton(
-              icon: Icon(Icons.calendar_view_day, color: Colors.black),
-              onPressed: null),
+          leading:
+              IconButton(icon: Icon(Icons.calendar_view_day), onPressed: null),
           actions: <Widget>[
-            IconButton(
-                icon: Icon(Icons.add, color: Colors.black),
-                onPressed: addMeasurement)
+            IconButton(icon: Icon(Icons.add), onPressed: addMeasurement)
           ],
         ),
         body: Container(
@@ -66,9 +58,8 @@ class DayDisplayPageState extends State<DayDisplayPage> {
   }
 
   void addMeasurement() {
-    _measurements.add(Measurement(BloodPressure(Random().nextInt(20) + 60,
-        Random().nextInt(40) + 100, Random().nextInt(50) + 40)));
-    setState(() {});
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => AddMeasurementPage()));
   }
 
   Widget listItemBuilder(context, index) {
