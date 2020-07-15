@@ -7,7 +7,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="keep_health_on_track"
+        android:label="Keep Health On Track"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
