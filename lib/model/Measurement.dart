@@ -26,7 +26,7 @@ class Measurement {
   // return timestamp of datetime as hashcode
   @override
   int get hashCode {
-    String hashString = DateFormat("yMd").format(_dateTime).replaceAll("/", "");
+    String hashString = DateFormat("dMMy").format(_dateTime);
     return int.parse(hashString);
   }
 }
