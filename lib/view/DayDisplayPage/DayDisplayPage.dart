@@ -3,9 +3,11 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:keep_health_on_track/model/Measurement.dart';
+import 'package:keep_health_on_track/model/MeasurementsMap.dart';
 import 'package:keep_health_on_track/view/AddMeasurementPage/AddMeasurementPage.dart';
 import 'package:keep_health_on_track/view/DayDisplayPage/MeasurementListTile.dart';
 import 'package:keep_health_on_track/view/utils/Parameters.dart';
+import 'package:provider/provider.dart';
 
 class DayDisplayPage extends StatefulWidget {
   @override
@@ -14,19 +16,19 @@ class DayDisplayPage extends StatefulWidget {
 
 class DayDisplayPageState extends State<DayDisplayPage> {
   DateTime _day;
+  int dayHashCode;
   List<Measurement> _measurements;
   String _appBarTitle;
 
   DayDisplayPageState([this._day]) {
     this._day ??= DateTime.now();
+    dayHashCode = int.parse(DateFormat("dMMy").format(_day));
     this._measurements = List();
     _appBarTitle = computeAppTitle(this._day);
   }
 
   @override
   Widget build(BuildContext context) {
-    int _itemCount = _measurements.length == 0 ? 1 : _measurements.length;
-
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.white,
@@ -48,10 +50,18 @@ class DayDisplayPageState extends State<DayDisplayPage> {
               borderRadius: BorderRadius.vertical(top: Radius.circular(30)),
               color: Color(0xFFF9EDE9),
               shape: BoxShape.rectangle),
-          child: ListView.builder(
-              padding: EdgeInsets.only(left: 24.0, right: 24.0, top: 24.0),
-              itemCount: _itemCount,
-              itemBuilder: listItemBuilder),
+          child: Consumer<MeasurementsMap>(
+            builder: (context, cart, child) {
+              _measurements = cart.measurementsMap[dayHashCode];
+              int _itemCount = 1;
+              if (_measurements != null) _itemCount = _measurements.length;
+
+              return ListView.builder(
+                  padding: EdgeInsets.only(left: 24.0, right: 24.0, top: 24.0),
+                  itemCount: _itemCount,
+                  itemBuilder: listItemBuilder);
+            },
+          ),
         ),
       ),
     );
@@ -63,7 +73,7 @@ class DayDisplayPageState extends State<DayDisplayPage> {
   }
 
   Widget listItemBuilder(context, index) {
-    if (_measurements.isEmpty)
+    if (_measurements == null || _measurements.isEmpty)
       return ListTile(
         title: Padding(
           padding: const EdgeInsets.all(8.0),

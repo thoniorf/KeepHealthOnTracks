@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:keep_health_on_track/model/MeasurementsMap.dart';
 import 'package:keep_health_on_track/view/DayDisplayPage/DayDisplayPage.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   initializeDateFormatting('it_IT', null).then((_) => runApp(MyApp()));
@@ -10,22 +12,25 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        title: 'Keep Health On Track',
-        theme: ThemeData(
-          appBarTheme: AppBarTheme(
-            elevation: 0,
-            color: Colors.white,
-            textTheme: TextTheme(
-              headline6: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.w600),
+    return ChangeNotifierProvider(
+      create: (context) => MeasurementsMap(),
+      child: MaterialApp(
+          title: 'Keep Health On Track',
+          theme: ThemeData(
+            appBarTheme: AppBarTheme(
+              elevation: 0,
+              color: Colors.white,
+              textTheme: TextTheme(
+                headline6: TextStyle(
+                    color: Colors.black,
+                    fontSize: 18.0,
+                    fontWeight: FontWeight.w600),
+              ),
+              iconTheme: IconThemeData(color: Colors.black87),
             ),
-            iconTheme: IconThemeData(color: Colors.black87),
           ),
-        ),
-        home: DayDisplayPage());
+          home: DayDisplayPage()),
+    );
   }
 }
 
